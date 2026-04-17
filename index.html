@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALLF - Mastering TOEIC Speaking</title>
+    <style>
+        :root {
+            --primary-blue: #1e2a47;
+            --accent-gold: #d4af37;
+            --bg-main: #f4f7f9;
+        }
+
+        body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 標題區域 */
+        .header {
+            background-color: var(--primary-blue);
+            width: 100%;
+            padding: 50px 0 80px 0; /* 增加底部內距給圖片空間 */
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Mibi 歡迎圖片優化：縮小尺寸避免擋住文字 */
+        .mibi-welcome {
+            height: 120px; /* 從 150 縮小到 120 */
+            width: 120px;
+            margin-top: -60px; /* 配合縮小後的半高度 */
+            background: white;
+            padding: 8px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            object-fit: contain;
+            z-index: 10;
+        }
+
+        /* 單元按鈕容器 */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 20px 0 60px 0;
+        }
+
+        .unit-card {
+            background: white;
+            padding: 25px 15px;
+            border-radius: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .unit-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 8px 20px rgba(212,175,55,0.2);
+        }
+
+        .unit-card.locked {
+            opacity: 0.5;
+            background: #f0f0f0;
+            cursor: not-allowed;
+        }
+
+        .unit-number {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+        }
+
+        /* 頁腳署名 */
+        .footer {
+            margin-top: auto;
+            padding: 30px;
+            color: #888;
+            font-size: 0.9rem;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>CALLF</h1>
+        <p>Cognitive Alignment Language Learning Framework</p>
+        <div style="margin-top: 15px; font-size: 1.3rem; font-weight: bold; color: var(--accent-gold);">
+            Mastering TOEIC Speaking
+        </div>
+    </div>
+
+    <img src="mibi_hello.jpg" class="mibi-welcome" alt="Mibi">
+
+    <div class="container">
+        <a href="unit1.html" class="unit-card">
+            <span class="unit-number">Unit 1</span>
+            <span>行銷策略</span>
+        </a>
+
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 2</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 3</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 4</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 5</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 6</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 7</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 8</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 9</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 10</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 11</span><span>Coming Soon</span></a>
+        <a href="#" class="unit-card locked"><span class="unit-number">Unit 12</span><span>Coming Soon</span></a>
+    </div>
+
+    <div class="footer">
+        by Mindy Ou <br>
+        <span style="font-size: 0.7rem; opacity: 0.7;">© 2026 CALLF Project. All Rights Reserved.</span>
+    </div>
+
+</body>
+</html>

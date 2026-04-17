@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>語思 CALC - SpeakOut Unit 1</title>
+    <style>
+        :root {
+            --primary-blue: #1e2a47;
+            --accent-gold: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #e6c96a, #d4af37);
+            --bg-main: #f4f7f9;
+            --bg-card: #ffffff;
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'PingFang TC', sans-serif;
+            background-color: var(--bg-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .unit-nav {
+            background-color: var(--primary-blue);
+            width: 100%;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .unit-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--accent-gold);
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .unit-btn.active {
+            background: var(--gold-gradient);
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--bg-card);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 10px solid var(--primary-blue);
+        }
+
+        .mibi-box { height: 160px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; }
+        .mibi-box img { height: 100%; object-fit: contain; }
+
+        .keyword-tag { 
+            background: #f0f0f0; 
+            padding: 6px 18px; 
+            border-radius: 20px; 
+            font-size: 1rem; 
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        .question-zh {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin: 20px 0;
+            line-height: 1.6;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .answer-en {
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 25px;
+            opacity: 0;
+            transition: 0.4s;
+            min-height: 60px;
+        }
+
+        .answer-en.visible { opacity: 1; }
+
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        button.main-btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-show { background-color: var(--primary-blue); color: white; }
+        .btn-next { background: var(--gold-gradient); color: var(--primary-blue); }
+
+        .progress-bar { margin-top: 20px; font-size: 0.85rem; color: #bbb; }
+    </style>
+</head>
+<body>
+
+    <div class="unit-nav">
+        <button class="unit-btn active">Unit 1</button>
+        <button class="unit-btn">Unit 2</button>
+        <button class="unit-btn">Unit 3</button>
+        <button class="unit-btn">Unit 4</button>
+        <button class="unit-btn">Unit 5</button>
+        <button class="unit-btn">Unit 6</button>
+        <button class="unit-btn">Unit 7</button>
+        <button class="unit-btn">Unit 8</button>
+        <button class="unit-btn">Unit 9</button>
+        <button class="unit-btn">Unit 10</button>
+        <button class="unit-btn">Unit 11</button>
+        <button class="unit-btn">Unit 12</button>
+    </div>
+
+    <div class="container">
+        <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 10px;">Mastering TOEIC Skills: Unit 1</div>
+        <div class="mibi-box">
+            <img id="mibi-img" src="mibi_hello.jpg" alt="Mibi">
+        </div>
+        <span id="keyword" class="keyword-tag">關鍵單字</span>
+        <div id="q-zh" class="question-zh">載入中...</div>
+        <div id="a-en" class="answer-en">Answer</div>
+        <div class="btn-group">
+            <button class="main-btn btn-show" onclick="showAnswer()">看答案 & 聽發音</button>
+            <button class="main-btn btn-next" onclick="nextQuestion()">下一題</button>
+        </div>
+        <div id="progress" class="progress-bar">1 / 20</div>
+    </div>
+
+<script>
+    const questions = [
+        // --- 核心對話練習 (已去除中文裡的括弧英文) ---
+        { key: "pitch / circulation", zh: "嗨 Jamie，我們需要一個新的推銷方案來提高我們月刊的發行量，並吸引更多消費者。", en: "Hi Jamie, we need a new pitch to increase the circulation of our monthly magazine and attract more consumers." },
+        { key: "graphic designer / logo", zh: "我建議聘請專業的平面設計師來製作一個更幽默且吸睛的標誌。", en: "I suggest hiring a professional graphic designer to create a more humorous and eye-catching logo." },
+        { key: "trial offer / encourage", zh: "好主意。我們也應該考慮提供試用優惠，以鼓勵大家訂閱我們的廣告內容。", en: "Good idea. We should also consider offering a trial offer to encourage people to subscribe to our commercial content." },
+        { key: "billboard / neon sign", zh: "我們是否也該在市中心投標大型廣告看板或亮眼的霓虹燈招牌來增加品牌知名度？", en: "Should we also bid on a large billboard or a bright neon sign downtown to increase brand awareness?" },
+        { key: "thorough / classified ads", zh: "有可能，但我們的規劃必須非常周詳。我也在考慮刊登一些分類廣告以進行更精準的投放。", en: "Possibly, but our planning must be very thorough. I'm also considering placing some classified ads for more targeted delivery." },
+        { key: "banner / endorsing", zh: "我同意。順便問一下，聽說會有一位知名運動員在橫幅廣告中代言我們的新運動系列，是真的嗎？", en: "I agree. By the way, is it true that a famous athlete will be endorsing our new sports line in a banner ad?" },
+        { key: "product demo", zh: "是的，那是計畫的一部分。我們想在下次員工會議上進行產品示範，以收集大家的意見。", en: "Yes, that's part of the plan. We want to do a product demo at the next staff meeting to gather everyone's feedback." },
+        { key: "toll-free", zh: "太棒了。我也會確認是否能設置一個免付費電話，讓客戶能輕鬆聯繫我們表達訴求。", en: "Great. I'll also check if we can set up a toll-free number so customers can easily contact us with their requests." },
+        { key: "quickest / most recent", zh: "完美。我們需要找到最快的方式啟動這個活動，因為最近的數據顯示競爭對手正在趕上...", en: "Perfect. We need to find the quickest way to launch this campaign, as most recent data shows competitors are catching up..." },
+        
+        // --- 字彙對齊強化練習 ---
+        { key: "pitch", zh: "他的推銷方案非常有說服力。", en: "His pitch was very persuasive." },
+        { key: "circulation", zh: "這份雜誌的發行量正在穩定增長。", en: "The circulation of this magazine is growing steadily." },
+        { key: "consumers", zh: "我們需要了解消費者的心理。", en: "We need to understand the psychology of consumers." },
+        { key: "humorous", zh: "這則廣告用了非常幽默的手法。", en: "This advertisement uses a very humorous approach." },
+        { key: "logo", zh: "這個新標誌看起來更現代化。", en: "The new logo looks more modern." },
+        { key: "trial offer", zh: "我們提供一個月的試用優惠。", en: "We provide a one-month trial offer." },
+        { key: "encourage", zh: "我們應該鼓勵員工提出創意。", en: "We should encourage employees to come up with ideas." },
+        { key: "billboard", zh: "那個大型廣告看板非常顯眼。", en: "That billboard is very prominent." },
+        { key: "thorough", zh: "這份報告需要做周詳的分析。", en: "This report needs a thorough analysis." },
+        { key: "endorsing", zh: "那位明星正在代言我們的手錶。", en: "That star is endorsing our watch." },
+        { key: "toll-free", zh: "這是一個免付費客服電話。", en: "This is a toll-free customer service number." }
+    ];
+
+    let currentIndex = 0;
+    const synth = window.speechSynthesis;
+
+    function updateDisplay() {
+        const q = questions[currentIndex];
+        document.getElementById('keyword').innerText = "關鍵字: " + q.key;
+        document.getElementById('q-zh').innerText = q.zh;
+        document.getElementById('a-en').innerText = q.en;
+        document.getElementById('a-en').classList.remove('visible');
+        document.getElementById('progress').innerText = `${currentIndex + 1} / ${questions.length}`;
+        document.getElementById('mibi-img').src = 'mibi_cheer.jpg';
+    }
+
+    function showAnswer() {
+        document.getElementById('a-en').classList.add('visible');
+        document.getElementById('mibi-img').src = 'mibi_happy.jpg';
+        const utter = new SpeechSynthesisUtterance(questions[currentIndex].en);
+        utter.lang = 'en-US';
+        utter.rate = 0.85;
+        synth.speak(utter);
+    }
+
+    function nextQuestion() {
+        currentIndex = (currentIndex + 1) % questions.length;
+        updateDisplay();
+    }
+
+    window.onload = updateDisplay;
+</script>
+</body>
+</html>
