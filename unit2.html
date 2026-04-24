@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>語思 CALC - SpeakOut Unit 2</title>
+    <style>
+        :root {
+            --primary-blue: #1e2a47;
+            --accent-gold: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #e6c96a, #d4af37);
+            --bg-main: #f4f7f9;
+            --bg-card: #ffffff;
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'PingFang TC', sans-serif;
+            background-color: var(--bg-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .unit-nav {
+            background-color: var(--primary-blue);
+            width: 100%;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .unit-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--accent-gold);
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .unit-btn.active {
+            background: var(--gold-gradient);
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--bg-card);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 10px solid var(--primary-blue);
+        }
+
+        .mibi-box { height: 160px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; }
+        .mibi-box img { height: 100%; object-fit: contain; }
+
+        .keyword-tag {
+            background: #f0f0f0;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 1rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        .question-zh {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin: 20px 0;
+            line-height: 1.6;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .answer-en {
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 25px;
+            opacity: 0;
+            transition: 0.4s;
+            min-height: 60px;
+        }
+
+        .answer-en.visible { opacity: 1; }
+
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        button.main-btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-show { background-color: var(--primary-blue); color: white; }
+        .btn-next { background: var(--gold-gradient); color: var(--primary-blue); }
+
+        .progress-bar { margin-top: 20px; font-size: 0.85rem; color: #bbb; }
+    </style>
+</head>
+<body>
+
+    <div class="unit-nav">
+        <button class="unit-btn">Unit 1</button>
+        <button class="unit-btn active">Unit 2</button>
+        <button class="unit-btn">Unit 3</button>
+        <button class="unit-btn">Unit 4</button>
+        <button class="unit-btn">Unit 5</button>
+        <button class="unit-btn">Unit 6</button>
+        <button class="unit-btn">Unit 7</button>
+        <button class="unit-btn">Unit 8</button>
+        <button class="unit-btn">Unit 9</button>
+        <button class="unit-btn">Unit 10</button>
+        <button class="unit-btn">Unit 11</button>
+        <button class="unit-btn">Unit 12</button>
+    </div>
+
+    <div class="container">
+        <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 10px;">Mastering TOEIC Skills: Unit 2</div>
+        <div class="mibi-box">
+            <img id="mibi-img" src="mibi_hello.jpg" alt="Mibi">
+        </div>
+        <span id="keyword" class="keyword-tag">關鍵字載入中</span>
+        <div id="q-zh" class="question-zh">載入中...</div>
+        <div id="a-en" class="answer-en">Answer</div>
+        <div class="btn-group">
+            <button class="main-btn btn-show" onclick="showAnswer()">顯示答案 ＆ 朗讀英文</button>
+            <button class="main-btn btn-next" onclick="nextQuestion()">下一題</button>
+        </div>
+        <div id="progress" class="progress-bar">1 / 20</div>
+    </div>
+
+<script>
+    const questions = [
+        // --- 情境對話：客服電話對話 (反映真實職場情境的對話句) ---
+        { key: "defective / made a complaint", zh: "Maria致電投訴，表示她收到了一個有瑕疵的產品，而且上週已正式申訴過，卻完全沒有得到任何回應。", en: "Maria called to say she had received a defective product and had already made a complaint last week with absolutely no response." },
+        { key: "under pressure / impatient", zh: "Alex表示完全理解Maria一直承受著很大的壓力，而Maria也坦承她現在真的已經失去耐心了。", en: "Alex said he fully understood that Maria had been under pressure, while Maria admitted she was genuinely impatient at this point." },
+        { key: "last straw / hostile", zh: "等待兩週卻毫無進展已是Maria的最後底線，而客服中心大多數人員的敷衍態度讓她感到非常不友善。", en: "Waiting two weeks with no resolution was the last straw for Maria, who found most agents at the call center dismissive and hostile." },
+        { key: "misplaced / indecisive", zh: "替換品的追蹤資訊不知道被放到哪裡去了，讓Maria對是否要繼續使用這家公司的服務感到猶豫不決。", en: "The tracking information for the replacement had been misplaced, leaving Maria indecisive about whether to continue using the company's service." },
+        { key: "declined / consumer rights", zh: "公司無故拒絕退款申請，完全侵犯了消費者應有的基本權益，Maria對此感到無法接受。", en: "The company declined the refund request without any valid reason, which was a clear violation of basic consumer rights that Maria found completely unacceptable." },
+        { key: "give up / enclosed", zh: "Alex承諾絕不放棄為客戶尋找解決方案，退款或替換品都會隨附一封道歉信一起寄給Maria。", en: "Alex promised not to give up on finding a solution for Maria, and said the refund or replacement would be enclosed together with a personal apology letter." },
+        { key: "threatened / compromise", zh: "Maria坦言曾感到被迫必須採取法律行動，但她更希望雙方能夠達成一個對彼此都公平的妥協方案。", en: "Maria admitted she had felt threatened into considering legal action, but said she much preferred to reach a fair compromise that worked for both sides." },
+        { key: "conflict resolution / satisfied customer", zh: "Alex表示，這正是衝突解決的精神所在，他希望Maria掛上電話時能成為一位真正滿意的顧客。", en: "Alex said that was exactly the spirit of conflict resolution — he wanted Maria to end the call feeling like a genuinely satisfied customer." },
+        { key: "unrealistic / suggestion box", zh: "Maria指出網站對配送時間的說明太不切實際，Alex隨即承諾將這寶貴的意見轉交到公司的意見箱系統。", en: "Maria pointed out that the website was unrealistic about delivery timelines, and Alex immediately promised to forward that valuable feedback to the company's suggestion box system." },
+
+        // --- 單字強化練習 ---
+        { key: "call center", zh: "新進客服人員必須完成六週的情境模擬訓練，才能獨立處理帳單糾紛或取消帳戶等複雜案件。", en: "New agents at the call center must complete six weeks of scenario-based training before handling escalated billing disputes or account cancellations independently." },
+        { key: "granted", zh: "的確，這樣的延誤是完全無法接受的，公司應立即採取行動以彌補給顧客帶來的不便。", en: "Granted, the delay is completely unacceptable, and the company should take immediate action to make up for the inconvenience caused to the customer." },
+        { key: "provided that", zh: "只要顧客提供訂單號碼，客服人員便可以立刻調出相關記錄並著手處理退款申請。", en: "Provided that the customer supplies the order number, the service agent can immediately retrieve the relevant records and begin processing the refund request." },
+        { key: "in other words", zh: "換句話說，根本沒有任何人主動跟進這件案子，這完全是公司方面的疏失，必須立即負責。", en: "In other words, no one actively followed up on the case at all — that was entirely the company's fault and must be addressed without delay." },
+        { key: "disclosed", zh: "根據保密協議條款，員工不得在未經高層正式授權的情況下，向外部人士揭露任何專屬資訊。", en: "Under the terms of the nondisclosure agreement, employees are prohibited from disclosing any proprietary information to external parties without official authorization from senior management." },
+        { key: "that is to say", zh: "也就是說，您的親身服務體驗對我們至關重要，任何問題都應在第一時間獲得妥善的處理。", en: "That is to say, your personal service experience matters deeply to us, and any issue should be properly addressed at the very first opportunity." },
+        { key: "unless", zh: "除非顧客另有其他需求，否則客服人員將在一小時內發送確認信，並附上後續處理的詳細說明。", en: "Unless the customer has any additional requirements, the service agent will send a confirmation email within one hour with detailed instructions on the next steps." },
+        { key: "impatient", zh: "機構股東對管理層一再延後季度股利公告感到不耐煩，進而要求召開緊急董事會以敲定明確的派息時程。", en: "Institutional shareholders grew impatient with management's repeated deferrals of the quarterly dividend announcement and pressed for an emergency board session to demand a definitive payout timeline." },
+        { key: "misplaced", zh: "Carla翻遍了整間辦公室才發現，那份已簽署的保密協議只是在午休的匆忙中被隨手放錯了地方。", en: "After searching her entire office, Carla realized the signed NDA had simply been misplaced on the communal printer during the lunchtime rush earlier that week." },
+        { key: "compromise", zh: "經過七小時的僵局談判，工會與管理層代表終於達成妥協，基本工資調漲百分之四，退休金改革則延至下一輪協商。", en: "After seven hours of deadlocked talks, negotiators from the union and management finally reached a compromise that raised base wages by four percent while deferring the pension overhaul to the next bargaining cycle." },
+        { key: "consumer rights", zh: "新頒布的法規強化了消費者權益保障，規定零售商對於任何與廣告規格不符的商品，必須提供全額現金退款而非商店折抵。", en: "The newly enacted legislation strengthens consumer rights by requiring retailers to issue full cash refunds — not merely store credit — for any goods that fail to match the specifications promised in the advertising." }
+    ];
+
+    let currentIndex = 0;
+    const synth = window.speechSynthesis;
+
+    function updateDisplay() {
+        const q = questions[currentIndex];
+        document.getElementById('keyword').innerText = "關鍵字: " + q.key;
+        document.getElementById('q-zh').innerText = q.zh;
+        document.getElementById('a-en').innerText = q.en;
+        document.getElementById('a-en').classList.remove('visible');
+        document.getElementById('progress').innerText = `${currentIndex + 1} / ${questions.length}`;
+        document.getElementById('mibi-img').src = 'mibi_cheer.jpg';
+    }
+
+    function showAnswer() {
+        document.getElementById('a-en').classList.add('visible');
+        document.getElementById('mibi-img').src = 'mibi_happy.jpg';
+        const utter = new SpeechSynthesisUtterance(questions[currentIndex].en);
+        utter.lang = 'en-US';
+        utter.rate = 0.85;
+        synth.speak(utter);
+    }
+
+    function nextQuestion() {
+        currentIndex = (currentIndex + 1) % questions.length;
+        updateDisplay();
+    }
+
+    window.onload = updateDisplay;
+</script>
+</body>
+</html>
