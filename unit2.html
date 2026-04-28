@@ -53,6 +53,12 @@
             font-weight: bold;
             border: none;
         }
+        .unit-btn.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #555;
+        }
+
 
         .container {
             width: 90%;
@@ -122,18 +128,18 @@
 <body>
 
     <div class="unit-nav">
-        <button class="unit-btn">Unit 1</button>
+        <button class="unit-btn" onclick="window.location.href='unit1.html'">Unit 1</button>
         <button class="unit-btn active">Unit 2</button>
-        <button class="unit-btn">Unit 3</button>
-        <button class="unit-btn">Unit 4</button>
-        <button class="unit-btn">Unit 5</button>
-        <button class="unit-btn">Unit 6</button>
-        <button class="unit-btn">Unit 7</button>
-        <button class="unit-btn">Unit 8</button>
-        <button class="unit-btn">Unit 9</button>
-        <button class="unit-btn">Unit 10</button>
-        <button class="unit-btn">Unit 11</button>
-        <button class="unit-btn">Unit 12</button>
+        <button class="unit-btn" onclick="window.location.href='unit3.html'">Unit 3</button>
+        <button class="unit-btn" onclick="window.location.href='unit4.html'">Unit 4</button>
+        <button class="unit-btn locked" disabled>Unit 5</button>
+        <button class="unit-btn locked" disabled>Unit 6</button>
+        <button class="unit-btn locked" disabled>Unit 7</button>
+        <button class="unit-btn locked" disabled>Unit 8</button>
+        <button class="unit-btn locked" disabled>Unit 9</button>
+        <button class="unit-btn locked" disabled>Unit 10</button>
+        <button class="unit-btn locked" disabled>Unit 11</button>
+        <button class="unit-btn locked" disabled>Unit 12</button>
     </div>
 
     <div class="container">
