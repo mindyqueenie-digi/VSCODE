@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>語思 CALC - SpeakOut Unit 4</title>
+    <style>
+        :root {
+            --primary-blue: #1e2a47;
+            --accent-gold: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #e6c96a, #d4af37);
+            --bg-main: #f4f7f9;
+            --bg-card: #ffffff;
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'PingFang TC', sans-serif;
+            background-color: var(--bg-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .unit-nav {
+            background-color: var(--primary-blue);
+            width: 100%;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .unit-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--accent-gold);
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .unit-btn.active {
+            background: var(--gold-gradient);
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--bg-card);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 10px solid var(--primary-blue);
+        }
+
+        .mibi-box { height: 160px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; }
+        .mibi-box img { height: 100%; object-fit: contain; }
+
+        .keyword-tag {
+            background: #f0f0f0;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 1rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        .question-zh {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin: 20px 0;
+            line-height: 1.6;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .answer-en {
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 25px;
+            opacity: 0;
+            transition: 0.4s;
+            min-height: 60px;
+        }
+
+        .answer-en.visible { opacity: 1; }
+
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        button.main-btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-show { background-color: var(--primary-blue); color: white; }
+        .btn-next { background: var(--gold-gradient); color: var(--primary-blue); }
+
+        .progress-bar { margin-top: 20px; font-size: 0.85rem; color: #bbb; }
+    </style>
+</head>
+<body>
+
+    <div class="unit-nav">
+        <button class="unit-btn">Unit 1</button>
+        <button class="unit-btn">Unit 2</button>
+        <button class="unit-btn">Unit 3</button>
+        <button class="unit-btn active">Unit 4</button>
+        <button class="unit-btn">Unit 5</button>
+        <button class="unit-btn">Unit 6</button>
+        <button class="unit-btn">Unit 7</button>
+        <button class="unit-btn">Unit 8</button>
+        <button class="unit-btn">Unit 9</button>
+        <button class="unit-btn">Unit 10</button>
+        <button class="unit-btn">Unit 11</button>
+        <button class="unit-btn">Unit 12</button>
+    </div>
+
+    <div class="container">
+        <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 10px;">Mastering TOEIC Skills: Unit 4</div>
+        <div class="mibi-box">
+            <img id="mibi-img" src="mibi_hello.jpg" alt="Mibi">
+        </div>
+        <span id="keyword" class="keyword-tag">關鍵單字</span>
+        <div id="q-zh" class="question-zh">載入中...</div>
+        <div id="a-en" class="answer-en">Answer</div>
+        <div class="btn-group">
+            <button class="main-btn btn-show" onclick="showAnswer()">看答案 & 聽發音</button>
+            <button class="main-btn btn-next" onclick="nextQuestion()">下一題</button>
+        </div>
+        <div id="progress" class="progress-bar">1 / 20</div>
+    </div>
+
+<script>
+    const questions = [
+        // --- 核心對話練習 (財務金融情境，已去除中文裡的括弧英文) ---
+        { key: "balance sheets / consecutive", zh: "Sophia，看一下最新的資產負債表，我們已經連續三個季度成本上升了。", en: "Sophia, take a look at the latest balance sheets — we've had three consecutive quarters of rising costs." },
+        { key: "price hikes / volatile / fluctuate", zh: "原物料的價格漲幅太劇烈，加上匯率持續波動，讓進口成本變得非常不穩定。", en: "The price hikes on raw materials have been steep, and with exchange rates continuing to fluctuate, our import costs have become highly volatile." },
+        { key: "secure / funding / recession", zh: "我建議盡早爭取一筆額外的融資，以應對可能即將到來的經濟衰退。", en: "I recommend we secure additional funding as soon as possible to prepare for the recession that may be coming." },
+        { key: "liquidity / cash-strapped", zh: "我們現在的現金流動性大概只能再撐六個月，再不行動公司就會變成資金緊張的企業。", en: "Our current liquidity will only last about six more months, and if we don't act, the company will become cash-strapped." },
+        { key: "associates / dividend / transfer", zh: "我跟兩位資深合夥人討論過了，他們建議延後本季的股利發放，把那筆現金轉移進營運資金池。", en: "I've discussed this with two senior associates, and they suggest postponing this quarter's dividend and transferring that cash into our operating reserves." },
+        { key: "portfolio / outweigh", zh: "但延後股利會影響投資人對我們投資組合的信心，我們得仔細評估好處是否大於風險。", en: "But delaying the dividend could weaken investor confidence in our portfolio, so we need to assess whether the benefits really outweigh the risks." },
+        { key: "privatization / liability / compliance / penalty", zh: "另一個方案是啟動海外子公司的部分私有化，但那會涉及大量法律責任和合規問題，必須避免被主管機關開出高額罰款。", en: "Another option is to start the partial privatization of our overseas subsidiary, but that involves significant legal liability and compliance issues — we have to avoid heavy regulatory penalties." },
+        { key: "payroll / depreciation / subtract", zh: "我們最近的內部稽核發現，有幾筆薪資相關的折舊計算不正確，必須重新調整，然後再從毛利中扣除。", en: "Our recent internal audit found that several payroll-related depreciation entries were calculated incorrectly and must be restated, then subtracted from gross profit." },
+        { key: "forecast / quarterly / profitable / negotiation / accrue", zh: "根據我最新的財務預測，如果我們同時調整成本結構並推動新產品線，再加上跟主要客戶重新談判，下個季度的表現會更具獲利能力，利息也能持續累積。", en: "According to my latest forecast, if we adjust the cost structure, launch the new product line, and renegotiate with key clients, our next quarterly performance should be more profitable and interest income will continue to accrue." },
+
+        // --- 字彙對齊強化練習 ---
+        { key: "revenue", zh: "公司的營收今年成長了 15%。", en: "The company's revenue grew by 15% this year." },
+        { key: "employment", zh: "整體就業環境正在逐步改善。", en: "The overall employment environment is gradually improving." },
+        { key: "assets", zh: "我們公司的核心資產仍然非常健康。", en: "Our company's core assets remain very healthy." },
+        { key: "balance sheet", zh: "會計師正在審查這份資產負債表。", en: "The accountant is reviewing this balance sheet." },
+        { key: "recession", zh: "經濟衰退期間，許多公司被迫裁員。", en: "During a recession, many companies are forced to lay off employees." },
+        { key: "fluctuate", zh: "國際油價每天都在波動。", en: "International oil prices fluctuate every day." },
+        { key: "volatile", zh: "加密貨幣市場一向非常不穩定。", en: "The cryptocurrency market has always been highly volatile." },
+        { key: "secure", zh: "我們需要盡快爭取更多的長期合約。", en: "We need to secure more long-term contracts as soon as possible." },
+        { key: "outweigh", zh: "這項投資的好處遠大於潛在的風險。", en: "The benefits of this investment far outweigh the potential risks." },
+        { key: "compliance", zh: "公司必須遵守所有的合規規範。", en: "The company must adhere to all compliance regulations." },
+        { key: "negotiation", zh: "雙方目前仍在進行積極的合約談判。", en: "Both sides are still in active contract negotiation." }
+    ];
+
+    let currentIndex = 0;
+    const synth = window.speechSynthesis;
+
+    function updateDisplay() {
+        const q = questions[currentIndex];
+        document.getElementById('keyword').innerText = "關鍵字: " + q.key;
+        document.getElementById('q-zh').innerText = q.zh;
+        document.getElementById('a-en').innerText = q.en;
+        document.getElementById('a-en').classList.remove('visible');
+        document.getElementById('progress').innerText = `${currentIndex + 1} / ${questions.length}`;
+        document.getElementById('mibi-img').src = 'mibi_cheer.jpg';
+    }
+
+    function showAnswer() {
+        document.getElementById('a-en').classList.add('visible');
+        document.getElementById('mibi-img').src = 'mibi_happy.jpg';
+        const utter = new SpeechSynthesisUtterance(questions[currentIndex].en);
+        utter.lang = 'en-US';
+        utter.rate = 0.85;
+        synth.speak(utter);
+    }
+
+    function nextQuestion() {
+        currentIndex = (currentIndex + 1) % questions.length;
+        updateDisplay();
+    }
+
+    window.onload = updateDisplay;
+</script>
+</body>
+</html>
