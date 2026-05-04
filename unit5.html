@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>語思 CALC - SpeakOut Unit 1</title>
+    <title>語思 CALC - SpeakOut Unit 5</title>
     <style>
         :root {
             --primary-blue: #1e2a47;
@@ -75,11 +75,11 @@
         .mibi-box { height: 160px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; }
         .mibi-box img { height: 100%; object-fit: contain; }
 
-        .keyword-tag { 
-            background: #f0f0f0; 
-            padding: 6px 18px; 
-            border-radius: 20px; 
-            font-size: 1rem; 
+        .keyword-tag {
+            background: #f0f0f0;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 1rem;
             color: var(--primary-blue);
             font-weight: bold;
             border: 1px solid #ddd;
@@ -128,11 +128,11 @@
 <body>
 
     <div class="unit-nav">
-        <button class="unit-btn active">Unit 1</button>
+        <button class="unit-btn" onclick="window.location.href='unit1.html'">Unit 1</button>
         <button class="unit-btn" onclick="window.location.href='unit2.html'">Unit 2</button>
         <button class="unit-btn" onclick="window.location.href='unit3.html'">Unit 3</button>
         <button class="unit-btn" onclick="window.location.href='unit4.html'">Unit 4</button>
-        <button class="unit-btn" onclick="window.location.href='unit5.html'">Unit 5</button>
+        <button class="unit-btn active">Unit 5</button>
         <button class="unit-btn locked" disabled>Unit 6</button>
         <button class="unit-btn locked" disabled>Unit 7</button>
         <button class="unit-btn locked" disabled>Unit 8</button>
@@ -143,7 +143,7 @@
     </div>
 
     <div class="container">
-        <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 10px;">Mastering TOEIC Skills: Unit 1</div>
+        <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 10px;">Mastering TOEIC Skills: Unit 5</div>
         <div class="mibi-box">
             <img id="mibi-img" src="mibi_hello.jpg" alt="Mibi">
         </div>
@@ -159,29 +159,29 @@
 
 <script>
     const questions = [
-        // --- 核心對話練習 (已去除中文裡的括弧英文) ---
-        { key: "pitch / circulation", zh: "嗨 Jamie，我們需要一個新的推銷方案來提高我們月刊的發行量，並吸引更多消費者。", en: "Hi Jamie, we need a new pitch to increase the circulation of our monthly magazine and attract more consumers." },
-        { key: "graphic designer / logo", zh: "我建議聘請專業的平面設計師來製作一個更幽默且吸睛的標誌。", en: "I suggest hiring a professional graphic designer to create a more humorous and eye-catching logo." },
-        { key: "trial offer / encourage", zh: "好主意。我們也應該考慮提供試用優惠，以鼓勵大家訂閱我們的廣告內容。", en: "Good idea. We should also consider offering a trial offer to encourage people to subscribe to our commercial content." },
-        { key: "billboard / neon sign", zh: "我們是否也該在市中心投標大型廣告看板或亮眼的霓虹燈招牌來增加品牌知名度？", en: "Should we also bid on a large billboard or a bright neon sign downtown to increase brand awareness?" },
-        { key: "thorough / classified ads", zh: "有可能，但我們的規劃必須非常周詳。我也在考慮刊登一些分類廣告以進行更精準的投放。", en: "Possibly, but our planning must be very thorough. I'm also considering placing some classified ads for more targeted delivery." },
-        { key: "banner / endorsing", zh: "我同意。順便問一下，聽說會有一位知名運動員在橫幅廣告中代言我們的新運動系列，是真的嗎？", en: "I agree. By the way, is it true that a famous athlete will be endorsing our new sports line in a banner ad?" },
-        { key: "product demo", zh: "是的，那是計畫的一部分。我們想在下次員工會議上進行產品示範，以收集大家的意見。", en: "Yes, that's part of the plan. We want to do a product demo at the next staff meeting to gather everyone's feedback." },
-        { key: "toll-free", zh: "太棒了。我也會確認是否能設置一個免付費電話，讓客戶能輕鬆聯繫我們表達訴求。", en: "Great. I'll also check if we can set up a toll-free number so customers can easily contact us with their requests." },
-        { key: "quickest / most recent", zh: "完美。我們需要找到最快的方式啟動這個活動，因為最近的數據顯示競爭對手正在趕上...", en: "Perfect. We need to find the quickest way to launch this campaign, as most recent data shows competitors are catching up..." },
-        
+        // --- 核心對話練習 (市場研究與行銷情境) ---
+        { key: "market research / statistics / segment", zh: "Olivia，最新的市場研究結果出來了，統計數據顯示我們在 25 到 34 歲的市場區隔需求大幅成長。", en: "Olivia, the latest market research is out, and the statistics show that consumer demand has grown significantly in our 25-to-34-year-old segment." },
+        { key: "demographics / buying behavior / questionnaire", zh: "我們在問卷裡新增了三題，發現他們的人口統計和購買行為跟去年完全不同。", en: "We added three questions to the questionnaire and found that their demographics and buying behavior are completely different from last year." },
+        { key: "focus group / brand awareness / convenience", zh: "兩場焦點團體訪談都顯示，這群消費者特別重視便利性和品牌知名度。", en: "Two focus groups both showed that these consumers care a lot about convenience and brand awareness." },
+        { key: "cold calls / unethical / campaign", zh: "我們應該停掉那些被認為不道德的陌生開發電話，改用更精準的行銷活動。", en: "We should stop the cold calls that are seen as unethical and shift to more targeted campaigns." },
+        { key: "customize / promote / brick-and-mortar", zh: "我建議用客製化的內容去推廣這條新產品線，並用實體店面體驗來補強。", en: "I suggest customizing the content to promote the new product line and reinforcing it with brick-and-mortar experiences." },
+        { key: "competition / competitor / advertising / outweigh", zh: "競爭越來越激烈，主要競爭者已經在電視廣告加碼，但我們相信數位通路的長期效益會超過電視廣告。", en: "Competition is intensifying and our main competitor has doubled down on TV advertising, but we believe digital channels will outweigh TV advertising in the long run." },
+        { key: "joint venture / infrastructure / implement", zh: "我提議和當地零售商合作一個合資企業，因為中部市場的零售基礎建設還很弱，這樣才能更快推行新策略。", en: "I propose forming a joint venture with a local retailer because the retail infrastructure in the central region is weak, which will help us implement the new strategy faster." },
+        { key: "incentives / quota / GDP", zh: "我們可以設小額誘因鼓勵消費者填問卷，再依過去三季的銷售配額和 GDP 預測來定基準。", en: "We can offer small incentives to encourage consumers to fill out the questionnaire, then set the baseline using last three quarters' sales quota and the GDP forecast." },
+        { key: "boost / accrue / dip / analyze", zh: "由於利息持續累積，我們的行銷準備金還有空間，可以撥一部分提升品牌力，並重新分析上一季客戶下滑的原因。", en: "Since interest continues to accrue, our marketing reserve still has room to boost brand power, and we can re-analyze the reasons behind last quarter's customer dip." },
+
         // --- 字彙對齊強化練習 ---
-        { key: "pitch", zh: "他的推銷方案非常有說服力。", en: "His pitch was very persuasive." },
-        { key: "circulation", zh: "這份雜誌的發行量正在穩定增長。", en: "The circulation of this magazine is growing steadily." },
-        { key: "consumers", zh: "我們需要了解消費者的心理。", en: "We need to understand the psychology of consumers." },
-        { key: "humorous", zh: "這則廣告用了非常幽默的手法。", en: "This advertisement uses a very humorous approach." },
-        { key: "logo", zh: "這個新標誌看起來更現代化。", en: "The new logo looks more modern." },
-        { key: "trial offer", zh: "我們提供一個月的試用優惠。", en: "We provide a one-month trial offer." },
-        { key: "encourage", zh: "我們應該鼓勵員工提出創意。", en: "We should encourage employees to come up with ideas." },
-        { key: "billboard", zh: "那個大型廣告看板非常顯眼。", en: "That billboard is very prominent." },
-        { key: "thorough", zh: "這份報告需要做周詳的分析。", en: "This report needs a thorough analysis." },
-        { key: "endorsing", zh: "那位明星正在代言我們的手錶。", en: "That star is endorsing our watch." },
-        { key: "toll-free", zh: "這是一個免付費客服電話。", en: "This is a toll-free customer service number." }
+        { key: "market research", zh: "我們在進入新市場前都會先做市場研究。", en: "We always conduct market research before entering a new market." },
+        { key: "demographics", zh: "這個產品的目標人口統計族群是專業女性。", en: "This product's target demographics are professional women." },
+        { key: "segment", zh: "高端市場區隔的成長速度最快。", en: "The premium segment is growing the fastest." },
+        { key: "questionnaire", zh: "請花兩分鐘填寫這份問卷。", en: "Please take two minutes to fill out this questionnaire." },
+        { key: "focus group", zh: "焦點團體在週四下午舉行。", en: "The focus group is scheduled for Thursday afternoon." },
+        { key: "brand awareness", zh: "我們的目標是把品牌知名度提升 20%。", en: "Our goal is to raise brand awareness by 20%." },
+        { key: "buying behavior", zh: "疫情之後消費者的購買行為改變很多。", en: "Consumer buying behavior has changed significantly after the pandemic." },
+        { key: "joint venture", zh: "雙方上週簽下了合資企業協議。", en: "Both parties signed the joint venture agreement last week." },
+        { key: "implement", zh: "管理層決定下個月推行新政策。", en: "Management decided to implement the new policy next month." },
+        { key: "outweigh", zh: "這項投資的好處遠大於風險。", en: "The benefits of this investment far outweigh the risks." },
+        { key: "accrue", zh: "這筆基金的利息每天都會累積。", en: "Interest on this fund accrues daily." }
     ];
 
     let currentIndex = 0;
