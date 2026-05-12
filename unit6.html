@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>語思 CALC - SpeakOut Unit 6</title>
+    <style>
+        :root {
+            --primary-blue: #1e2a47;
+            --accent-gold: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #e6c96a, #d4af37);
+            --bg-main: #f4f7f9;
+            --bg-card: #ffffff;
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'PingFang TC', sans-serif;
+            background-color: var(--bg-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .unit-nav {
+            background-color: var(--primary-blue);
+            width: 100%;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .unit-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--accent-gold);
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .unit-btn.active {
+            background: var(--gold-gradient);
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: none;
+        }
+        .unit-btn.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #555;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--bg-card);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 10px solid var(--primary-blue);
+        }
+
+        .mibi-box { height: 160px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; }
+        .mibi-box img { height: 100%; object-fit: contain; }
+
+        .keyword-tag { 
+            background: #f0f0f0; 
+            padding: 6px 18px; 
+            border-radius: 20px; 
+            font-size: 1rem; 
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        .question-zh {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin: 20px 0;
+            line-height: 1.6;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .answer-en {
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 25px;
+            opacity: 0;
+            transition: 0.4s;
+            min-height: 60px;
+        }
+
+        .answer-en.visible { opacity: 1; }
+
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        button.main-btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-show { background-color: var(--primary-blue); color: white; }
+        .btn-next { background: var(--gold-gradient); color: var(--primary-blue); }
+
+        .progress-bar { margin-top: 20px; font-size: 0.85rem; color: #bbb; }
+    </style>
+</head>
+<body>
+
+    <div class="unit-nav">
+        <button class="unit-btn" onclick="window.location.href='unit1.html'">Unit 1</button>
+        <button class="unit-btn" onclick="window.location.href='unit2.html'">Unit 2</button>
+        <button class="unit-btn" onclick="window.location.href='unit3.html'">Unit 3</button>
+        <button class="unit-btn" onclick="window.location.href='unit4.html'">Unit 4</button>
+        <button class="unit-btn" onclick="window.location.href='unit5.html'">Unit 5</button>
+        <button class="unit-btn active">Unit 6</button>
+        <button class="unit-btn locked" disabled>Unit 7</button>
+        <button class="unit-btn locked" disabled>Unit 8</button>
+        <button class="unit-btn locked" disabled>Unit 9</button>
+        <button class="unit-btn locked" disabled>Unit 10</button>
+        <button class="unit-btn locked" disabled>Unit 11</button>
+        <button class="unit-btn locked" disabled>Unit 12</button>
+    </div>
+
+    <div class="container">
+        <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 10px;">Mastering TOEIC Skills: Unit 6</div>
+        <div class="mibi-box">
+            <img id="mibi-img" src="mibi_hello.jpg" alt="Mibi">
+        </div>
+        <span id="keyword" class="keyword-tag">關鍵單字</span>
+        <div id="q-zh" class="question-zh">載入中...</div>
+        <div id="a-en" class="answer-en">Answer</div>
+        <div class="btn-group">
+            <button class="main-btn btn-show" onclick="showAnswer()">看答案 &amp; 聽發音</button>
+            <button class="main-btn btn-next" onclick="nextQuestion()">下一題</button>
+        </div>
+        <div id="progress" class="progress-bar">1 / 20</div>
+    </div>
+
+<script>
+    const questions = [
+        // --- 情境對話練習 (Q1–9) ---
+        { key: "department / briefcase", zh: "Rachel說：「Marcus，我需要和你談談我們部門的幾個問題，請把公事包放好，我們去會議室討論。」", en: "Rachel said, 'Marcus, I need to discuss a few department issues with you — please set down your briefcase and let's head to the conference room.'" },
+        { key: "ventilation / deadline", zh: "辦公室的通風系統出了問題，Rachel已要求設施部門在截止日期前完成修繕，否則影響全體同仁。", en: "The office ventilation system has been malfunctioning, and Rachel required facilities to finish repairs before the deadline or it would affect everyone." },
+        { key: "water cooler / restructure", zh: "飲水機旁邊積水的問題已一併回報，Marcus也趁機詢問公司是否真的在考慮重組架構。", en: "The water pooling near the water cooler was reported at the same time, and Marcus also asked if the company was truly considering a restructure." },
+        { key: "formulating / productivity", zh: "Rachel正在擬定一份提案，她希望正式公告前大家的工作效率不會受到影響。", en: "Rachel is currently formulating a proposal and hopes everyone's productivity won't be affected before the official announcement." },
+        { key: "laminator / efficiency", zh: "護貝機已壞了將近兩週，所有複製文件的需求都得跑到隔壁部門，嚴重影響了整體效率。", en: "The laminator has been broken for nearly two weeks — all duplicating needs have run to the next department, seriously hurting efficiency." },
+        { key: "compiling / duplicate", zh: "Rachel正在整理一份辦公室設備需求清單，Marcus可以把需要的項目加進去，包括複製機的補充需求。", en: "Rachel is compiling a list of office equipment requirements, and Marcus can add what he needs, including the need for a duplicate machine." },
+        { key: "apprentices / probationary", zh: "Marcus說有幾位新進學徒都還在試用期，他們學習積極，但人際技巧還需要加強。", en: "Marcus mentioned that a few new apprentices are still in their probationary period — they're eager to learn but their interpersonal skills still need work." },
+        { key: "interpersonal skills / mentor", zh: "由於新人的人際技巧還不夠成熟，Rachel建議安排一位資深同仁擔任他們的導師。", en: "Since the newcomers' interpersonal skills aren't quite mature, Rachel suggested assigning a senior colleague to serve as their mentor." },
+        { key: "collaborate / integrity", zh: "Rachel說Marcus既有誠信又樂於與他人合作，所以非常適合擔任學徒導師的角色。", en: "Rachel said Marcus has both integrity and a strong willingness to collaborate with others, making him very suitable as a mentor for the apprentices." },
+
+        // --- 單字強化練習 (Q10–20) ---
+        { key: "initiative", zh: "她一直很欣賞Marcus主動關心團隊，而不只是完成自己份內的工作。", en: "She has always appreciated that Marcus takes initiative in caring for the team, not just finishing his own assignments." },
+        { key: "subordinate", zh: "Rachel說一個好的上司與下屬之間，最重要的是能夠坦誠地表達自己的想法。", en: "Rachel said the most important thing between a good manager and a subordinate is the ability to speak openly and honestly." },
+        { key: "overtime", zh: "最近本季目標提高，加上幾位同仁請長假，所以大家加班的情形比以前多。", en: "This quarter's targets have been raised and several colleagues are on extended leave, so everyone has been working more overtime than before." },
+        { key: "requirement", zh: "公司的要求是在不增加預算的前提下達成目標，因此主管請大家暫時配合。", en: "The company requirement is to meet targets without increasing the budget, so the manager asked everyone to cooperate temporarily." },
+        { key: "majority", zh: "大多數同仁都願意配合加班安排，但Marcus注意到有幾位下屬情緒有些低落。", en: "The majority of colleagues are willing to cooperate with the overtime arrangement, but Marcus noticed a few subordinates seemed low in spirit." },
+        { key: "accomplished", zh: "Rachel觀察Marcus半年，認為他的表現非常出色，打算在下季評估後向上級推薦他。", en: "After observing Marcus for six months, Rachel felt his performance had been truly accomplished and planned to recommend him after next quarter's review." },
+        { key: "switchboard", zh: "電話總機今天早上故障了兩次，對客服部門造成了影響，Rachel說她稍後會通知IT。", en: "The switchboard malfunctioned twice this morning, affecting the customer service team — Rachel said she would notify IT shortly." },
+        { key: "resignation", zh: "一位同仁私下告訴Marcus他在考慮遞辭呈，Marcus認為主管應該了解這件事。", en: "A colleague privately told Marcus they were considering a resignation, and Marcus felt the manager should be aware of the situation." },
+        { key: "determined", zh: "Rachel認為Marcus已經非常有決心，這是擔任導師角色一個非常重要的特質。", en: "Rachel felt Marcus was already very determined — a critically important quality for anyone taking on a mentor role." },
+        { key: "promotion", zh: "Marcus得知主管打算推薦他晉升，感到非常榮幸，決心繼續努力不辜負期待。", en: "When Marcus learned his manager planned to recommend him for promotion, he felt truly honored and resolved to keep working hard." },
+        { key: "delegate", zh: "Rachel已將確認採購事宜委派給實習生，預計本週內就能解決護貝機的問題。", en: "Rachel had delegated the procurement confirmation to the interns and expected the laminator issue to be resolved within the week." }
+    ];
+
+    let currentIndex = 0;
+    const synth = window.speechSynthesis;
+
+    function updateDisplay() {
+        const q = questions[currentIndex];
+        document.getElementById('keyword').innerText = "關鍵字: " + q.key;
+        document.getElementById('q-zh').innerText = q.zh;
+        document.getElementById('a-en').innerText = q.en;
+        document.getElementById('a-en').classList.remove('visible');
+        document.getElementById('progress').innerText = `${currentIndex + 1} / ${questions.length}`;
+        document.getElementById('mibi-img').src = 'mibi_cheer.jpg';
+    }
+
+    function showAnswer() {
+        document.getElementById('a-en').classList.add('visible');
+        document.getElementById('mibi-img').src = 'mibi_happy.jpg';
+        const utter = new SpeechSynthesisUtterance(questions[currentIndex].en);
+        utter.lang = 'en-US';
+        utter.rate = 0.85;
+        synth.speak(utter);
+    }
+
+    function nextQuestion() {
+        currentIndex = (currentIndex + 1) % questions.length;
+        updateDisplay();
+    }
+
+    window.onload = updateDisplay;
+</script>
+</body>
+</html>
