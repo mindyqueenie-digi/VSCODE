@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>語思 CALC - SpeakOut Unit 7</title>
+    <style>
+        :root {
+            --primary-blue: #1e2a47;
+            --accent-gold: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #e6c96a, #d4af37);
+            --bg-main: #f4f7f9;
+            --bg-card: #ffffff;
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'PingFang TC', sans-serif;
+            background-color: var(--bg-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .unit-nav {
+            background-color: var(--primary-blue);
+            width: 100%;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .unit-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--accent-gold);
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .unit-btn.active {
+            background: var(--gold-gradient);
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: none;
+        }
+        .unit-btn.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #555;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--bg-card);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 10px solid var(--primary-blue);
+        }
+
+        .mibi-box { height: 160px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; }
+        .mibi-box img { height: 100%; object-fit: contain; }
+
+        .keyword-tag {
+            background: #f0f0f0;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 1rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        .question-zh {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin: 20px 0;
+            line-height: 1.6;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .answer-en {
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 25px;
+            opacity: 0;
+            transition: 0.4s;
+            min-height: 60px;
+        }
+
+        .answer-en.visible { opacity: 1; }
+
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        button.main-btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-show { background-color: var(--primary-blue); color: white; }
+        .btn-next { background: var(--gold-gradient); color: var(--primary-blue); }
+
+        .progress-bar { margin-top: 20px; font-size: 0.85rem; color: #bbb; }
+    </style>
+</head>
+<body>
+
+    <div class="unit-nav">
+        <button class="unit-btn" onclick="window.location.href='unit1.html'">Unit 1</button>
+        <button class="unit-btn" onclick="window.location.href='unit2.html'">Unit 2</button>
+        <button class="unit-btn" onclick="window.location.href='unit3.html'">Unit 3</button>
+        <button class="unit-btn" onclick="window.location.href='unit4.html'">Unit 4</button>
+        <button class="unit-btn" onclick="window.location.href='unit5.html'">Unit 5</button>
+        <button class="unit-btn" onclick="window.location.href='unit6.html'">Unit 6</button>
+        <button class="unit-btn active">Unit 7</button>
+        <button class="unit-btn locked" disabled>Unit 8</button>
+        <button class="unit-btn locked" disabled>Unit 9</button>
+        <button class="unit-btn locked" disabled>Unit 10</button>
+        <button class="unit-btn locked" disabled>Unit 11</button>
+        <button class="unit-btn locked" disabled>Unit 12</button>
+    </div>
+
+    <div class="container">
+        <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 10px;">Mastering TOEIC Skills: Unit 7</div>
+        <div class="mibi-box">
+            <img id="mibi-img" src="mibi_hello.jpg" alt="Mibi">
+        </div>
+        <span id="keyword" class="keyword-tag">關鍵單字</span>
+        <div id="q-zh" class="question-zh">載入中...</div>
+        <div id="a-en" class="answer-en">Answer</div>
+        <div class="btn-group">
+            <button class="main-btn btn-show" onclick="showAnswer()">看答案 &amp; 聽發音</button>
+            <button class="main-btn btn-next" onclick="nextQuestion()">下一題</button>
+        </div>
+        <div id="progress" class="progress-bar">1 / 20</div>
+    </div>
+
+<script>
+    const questions = [
+        // --- 核心對話練習 (1-9) ---
+        {
+            key: "personnel manager / probationary period",
+            zh: "人事經理通知 Michael，他的試用期表現非常令人滿意，並邀請他參加正式評估。",
+            en: "The personnel manager informed Michael that his probationary period performance was satisfactory and invited him to a formal assessment."
+        },
+        {
+            key: "payroll clerk / incentive",
+            zh: "薪資職員向員工說明，所有獎勵金都已在月底前正確核算並發放。",
+            en: "The payroll clerk explained to employees that all incentive bonuses had been correctly calculated and distributed before the end of the month."
+        },
+        {
+            key: "grievance / procedure",
+            zh: "人事部門提醒員工，所有申訴必須依照標準程序提交，以確保公平處理。",
+            en: "The HR department reminded employees that all grievances must be submitted following the standardized procedure to ensure fair handling."
+        },
+        {
+            key: "supervisor / subordinate",
+            zh: "主管鼓勵每位下屬積極提出查詢，並承諾不論問題大小都會給予真誠的回覆。",
+            en: "The supervisor encouraged every subordinate to raise queries actively and promised to provide sincere responses regardless of the size of the issue."
+        },
+        {
+            key: "orientation / eligible",
+            zh: "完成入職訓練後，員工才符合資格申請内部升遷，這是公司確保平等機會的重要程序。",
+            en: "After completing orientation, employees become eligible to apply for internal promotions, which is an important procedure ensuring equal opportunity."
+        },
+        {
+            key: "appraisal / competent",
+            zh: "年度績效評估結果顯示，這位有能力的工程師在整個試用期都表現卓越，令人印象深刻。",
+            en: "The annual performance appraisal results showed that this competent engineer had performed exceptionally throughout the entire probationary period."
+        },
+        {
+            key: "standardized / accessible",
+            zh: "標準化的人事表格現在可以透過公司的線上入口網站輕鬆取得，方便全體員工隨時提交查詢。",
+            en: "The standardized HR forms are now easily accessible through the company online portal, allowing all employees to submit queries at any time."
+        },
+        {
+            key: "recruitment / workforce",
+            zh: "新的招募計畫旨在擴大公司整體員工規模，尤其是吸引具有創意思維的有能力人才加入。",
+            en: "The new recruitment plan aims to expand the company workforce, especially attracting competent talent with creative thinking."
+        },
+        {
+            key: "resignation / terminate",
+            zh: "在公司終止合約之前，那位工程師已提交了正式辭呈，讓整個人事部門感到震驚與惋惜。",
+            en: "Before the company could terminate her contract, the engineer submitted her formal resignation, shocking the entire personnel department."
+        },
+        // --- 字彙對齊強化練習 (10-20) ---
+        {
+            key: "neutral",
+            zh: "調解人在整個申訴過程中保持中立，確保雙方都能公平表達意見。",
+            en: "The mediator remained neutral throughout the grievance process, ensuring both parties could express their views fairly."
+        },
+        {
+            key: "sincere",
+            zh: "主管向員工表達了真誠的感謝，肯定他們在試用期間的努力與貢獻。",
+            en: "The supervisor expressed sincere gratitude to the employees, acknowledging their effort and contribution during the probationary period."
+        },
+        {
+            key: "query",
+            zh: "如果對薪資計算有任何疑問，請透過易於使用的入口網站向薪資部門提交正式查詢。",
+            en: "If you have any questions about payroll calculations, please submit a formal query to the payroll department through the accessible portal."
+        },
+        {
+            key: "creative",
+            zh: "新員工提出了一個有創意的提案，建議改善招募程序，令人事經理印象深刻。",
+            en: "The new employee proposed a creative suggestion to improve the recruitment procedure, impressing the personnel manager."
+        },
+        {
+            key: "organized",
+            zh: "有條理的薪資職員在年度績效評估截止日前，確保所有薪資記錄都已妥善分類並歸檔。",
+            en: "The organized payroll clerk ensured all salary records were properly categorized and filed before the annual performance appraisal deadline."
+        },
+        {
+            key: "criticized",
+            zh: "公司因為在處理員工申訴方面缺乏透明度而被批評，因此決定修訂標準化的申訴程序。",
+            en: "The company was criticized for lacking transparency in handling employee grievances and decided to revise the standardized grievance procedure."
+        },
+        {
+            key: "equal",
+            zh: "公司政策明確規定，所有員工在升遷機會上都應享有平等待遇，不受背景或職位影響。",
+            en: "Company policy clearly states that all employees should receive equal treatment in promotion opportunities, regardless of background or position."
+        },
+        {
+            key: "negative",
+            zh: "負面的績效評估促使那名員工主動聯繫主管，詢問如何在下次入職訓練後改善表現。",
+            en: "The negative performance appraisal prompted the employee to proactively contact the supervisor and ask how to improve after the next orientation."
+        },
+        {
+            key: "contribute",
+            zh: "每位員工都應積極貢獻想法，幫助公司改善招募流程，建立一個更有活力的整體員工團隊。",
+            en: "Every employee should actively contribute ideas to help the company improve recruitment processes and build a more dynamic overall workforce."
+        },
+        {
+            key: "bellhop",
+            zh: "旅館服務員迅速、有條理地協助客人搬運行李到各個樓層，充分展現了他的服務熱忱。",
+            en: "The bellhop promptly and efficiently assisted guests in carrying their luggage to various floors, fully demonstrating his service enthusiasm."
+        },
+        {
+            key: "mailroom clerk",
+            zh: "收發室職員每天確保所有信件和包裹都按照標準化程序正確分類，並及時送達各部門。",
+            en: "The mailroom clerk ensures daily that all letters and packages are correctly sorted according to the standardized procedure and delivered to each department on time."
+        }
+    ];
+
+    let currentIndex = 0;
+    const synth = window.speechSynthesis;
+
+    function updateDisplay() {
+        const q = questions[currentIndex];
+        document.getElementById('keyword').innerText = "關鍵字: " + q.key;
+        document.getElementById('q-zh').innerText = q.zh;
+        document.getElementById('a-en').innerText = q.en;
+        document.getElementById('a-en').classList.remove('visible');
+        document.getElementById('progress').innerText = (currentIndex + 1) + " / " + questions.length;
+        document.getElementById('mibi-img').src = 'mibi_cheer.jpg';
+    }
+
+    function showAnswer() {
+        const q = questions[currentIndex];
+        document.getElementById('a-en').classList.add('visible');
+        document.getElementById('mibi-img').src = 'mibi_speak.jpg';
+        if (synth.speaking) synth.cancel();
+        const utter = new SpeechSynthesisUtterance(q.en);
+        utter.lang = 'en-US';
+        utter.rate = 0.85;
+        synth.speak(utter);
+    }
+
+    function nextQuestion() {
+        if (synth.speaking) synth.cancel();
+        currentIndex = (currentIndex + 1) % questions.length;
+        updateDisplay();
+    }
+
+    updateDisplay();
+</script>
+</body>
+</html>
