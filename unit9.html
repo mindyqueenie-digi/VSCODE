@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>語思 CALC - SpeakOut Unit 7</title>
+    <title>語思 CALC - SpeakOut Unit 9</title>
     <style>
         :root {
             --primary-blue: #1e2a47;
@@ -133,16 +133,16 @@
         <button class="unit-btn" onclick="window.location.href='unit4.html'">Unit 4</button>
         <button class="unit-btn" onclick="window.location.href='unit5.html'">Unit 5</button>
         <button class="unit-btn" onclick="window.location.href='unit6.html'">Unit 6</button>
-        <button class="unit-btn active">Unit 7</button>
+        <button class="unit-btn" onclick="window.location.href='unit7.html'">Unit 7</button>
         <button class="unit-btn" onclick="window.location.href='unit8.html'">Unit 8</button>
-        <button class="unit-btn" onclick="window.location.href='unit9.html'">Unit 9</button>
+        <button class="unit-btn active">Unit 9</button>
         <button class="unit-btn locked" disabled>Unit 10</button>
         <button class="unit-btn locked" disabled>Unit 11</button>
         <button class="unit-btn locked" disabled>Unit 12</button>
     </div>
 
     <div class="container">
-        <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 10px;">Mastering TOEIC Skills: Unit 7</div>
+        <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 10px;">Mastering TOEIC Skills: Unit 9</div>
         <div class="mibi-box">
             <img id="mibi-img" src="mibi_hello.jpg" alt="Mibi">
         </div>
@@ -160,105 +160,105 @@
     const questions = [
         // --- 核心對話練習 (1-9) ---
         {
-            key: "personnel manager / probationary period",
-            zh: "人事經理通知 Michael，他的試用期表現非常令人滿意，並邀請他參加正式評估。",
-            en: "The personnel manager informed Michael that his probationary period performance was satisfactory and invited him to a formal assessment."
+            key: "job fair / recruiter / multinational corporation",
+            zh: "在今天的就業博覽會上，這家跨國企業的招募經理親自面試每一位求職者。",
+            en: "At today's job fair, the recruiter from the multinational corporation personally interviewed every job seeker."
         },
         {
-            key: "payroll clerk / incentive",
-            zh: "薪資職員向員工說明，所有獎勵金都已在月底前正確核算並發放。",
-            en: "The payroll clerk explained to employees that all incentive bonuses had been correctly calculated and distributed before the end of the month."
+            key: "CV / cover letter / resume",
+            zh: "每位應徵者都必須繳交履歷和一封求職信，連同正式的簡歷一起說明自己的專業資格。",
+            en: "Each applicant must submit a CV and a cover letter, along with a formal resume explaining their qualifications."
         },
         {
-            key: "grievance / procedure",
-            zh: "人事部門提醒員工，所有申訴必須依照標準程序提交，以確保公平處理。",
-            en: "The HR department reminded employees that all grievances must be submitted following the standardized procedure to ensure fair handling."
+            key: "overqualified / entry-level / candidate",
+            zh: "面試官擔心這位人選對於這個入門級職位來說資歷過高，可能很快就會離職。",
+            en: "The interviewer worried that this candidate was overqualified for the entry-level position and might leave soon."
         },
         {
-            key: "supervisor / subordinate",
-            zh: "主管鼓勵每位下屬積極提出查詢，並承諾不論問題大小都會給予真誠的回覆。",
-            en: "The supervisor encouraged every subordinate to raise queries actively and promised to provide sincere responses regardless of the size of the issue."
+            key: "telecommute / perks",
+            zh: "能夠遠距上班是這家公司最吸引人的福利之一，特別受到年輕員工的歡迎。",
+            en: "Being able to telecommute is one of the most attractive perks this company offers, especially popular among younger staff."
         },
         {
-            key: "orientation / eligible",
-            zh: "完成入職訓練後，員工才符合資格申請内部升遷，這是公司確保平等機會的重要程序。",
-            en: "After completing orientation, employees become eligible to apply for internal promotions, which is an important procedure ensuring equal opportunity."
+            key: "compensation / job satisfaction",
+            zh: "優渥的薪酬方案加上高度的工作滿意度，讓公司的員工流動率大幅下降。",
+            en: "A generous compensation package and high job satisfaction greatly reduced the company's staff turnover."
         },
         {
-            key: "appraisal / competent",
-            zh: "年度績效評估結果顯示，這位有能力的工程師在整個試用期都表現卓越，令人印象深刻。",
-            en: "The annual performance appraisal results showed that this competent engineer had performed exceptionally throughout the entire probationary period."
+            key: "freelance / temp / aspire",
+            zh: "他做過自由接案的工作，也當過短期的臨時雇員，但他一直立志進入一家大企業發展。",
+            en: "He worked as a freelance contractor and a temp, but he always aspired to grow within a large corporation."
         },
         {
-            key: "standardized / accessible",
-            zh: "標準化的人事表格現在可以透過公司的線上入口網站輕鬆取得，方便全體員工隨時提交查詢。",
-            en: "The standardized HR forms are now easily accessible through the company online portal, allowing all employees to submit queries at any time."
+            key: "diversity / innovative",
+            zh: "公司以重視團隊多元性和鼓勵創新的工作方式自豪，因此能吸引各地的人才。",
+            en: "The company prides itself on valuing team diversity and encouraging innovative ways of working, attracting talent from everywhere."
         },
         {
-            key: "recruitment / workforce",
-            zh: "新的招募計畫旨在擴大公司整體員工規模，尤其是吸引具有創意思維的有能力人才加入。",
-            en: "The new recruitment plan aims to expand the company workforce, especially attracting competent talent with creative thinking."
+            key: "probationary period / terminated / severance package",
+            zh: "即使員工在試用期內被資遣，公司仍會依法提供一份合理的資遣方案。",
+            en: "Even if an employee is terminated during the probationary period, the company still provides a fair severance package."
         },
         {
-            key: "resignation / terminate",
-            zh: "在公司終止合約之前，那位工程師已提交了正式辭呈，讓整個人事部門感到震驚與惋惜。",
-            en: "Before the company could terminate her contract, the engineer submitted her formal resignation, shocking the entire personnel department."
+            key: "boast / good with numbers / post-secondary education",
+            zh: "她不想自誇，但她擁有完整的高等教育背景，而且非常擅長數字。",
+            en: "She doesn't want to boast, but she has a solid post-secondary education and is very good with numbers."
         },
         // --- 字彙對齊強化練習 (10-20) ---
         {
-            key: "neutral",
-            zh: "調解人在整個申訴過程中保持中立，確保雙方都能公平表達意見。",
-            en: "The mediator remained neutral throughout the grievance process, ensuring both parties could express their views fairly."
+            key: "recipient",
+            zh: "這個年度最佳員工獎的得獎者，將獲得一筆額外的獎金與多天的有薪假期。",
+            en: "The recipient of this year's best employee award will receive an extra bonus and several paid vacation days."
         },
         {
-            key: "sincere",
-            zh: "主管向員工表達了真誠的感謝，肯定他們在試用期間的努力與貢獻。",
-            en: "The supervisor expressed sincere gratitude to the employees, acknowledging their effort and contribution during the probationary period."
+            key: "underdressed",
+            zh: "第一次參加正式面試時，他非常擔心自己今天穿得太過隨便。",
+            en: "At his first formal interview, he was very worried about being underdressed today."
         },
         {
-            key: "query",
-            zh: "如果對薪資計算有任何疑問，請透過易於使用的入口網站向薪資部門提交正式查詢。",
-            en: "If you have any questions about payroll calculations, please submit a formal query to the payroll department through the accessible portal."
+            key: "self-esteem",
+            zh: "一份穩定的工作和同事真誠的肯定，能大幅提升一個人的自信與自我價值感。",
+            en: "A stable job and sincere recognition from colleagues can greatly boost one's self-esteem."
         },
         {
-            key: "creative",
-            zh: "新員工提出了一個有創意的提案，建議改善招募程序，令人事經理印象深刻。",
-            en: "The new employee proposed a creative suggestion to improve the recruitment procedure, impressing the personnel manager."
+            key: "qualifications",
+            zh: "招募人員會仔細檢視每一位應徵者的學歷與專業資格，再決定是否安排面試。",
+            en: "Recruiters carefully review each applicant's qualifications before deciding whether to arrange an interview."
         },
         {
-            key: "organized",
-            zh: "有條理的薪資職員在年度績效評估截止日前，確保所有薪資記錄都已妥善分類並歸檔。",
-            en: "The organized payroll clerk ensured all salary records were properly categorized and filed before the annual performance appraisal deadline."
+            key: "candidate",
+            zh: "在所有人選之中，這位求職者的臨場表現與專業態度最為亮眼。",
+            en: "Among all the candidates, this job seeker's performance and professionalism stood out the most."
         },
         {
-            key: "criticized",
-            zh: "公司因為在處理員工申訴方面缺乏透明度而被批評，因此決定修訂標準化的申訴程序。",
-            en: "The company was criticized for lacking transparency in handling employee grievances and decided to revise the standardized grievance procedure."
+            key: "compensation",
+            zh: "具競爭力的薪酬待遇是吸引頂尖人才、並留住他們的關鍵因素之一。",
+            en: "A competitive compensation package is one of the key factors in attracting and retaining top talent."
         },
         {
-            key: "equal",
-            zh: "公司政策明確規定，所有員工在升遷機會上都應享有平等待遇，不受背景或職位影響。",
-            en: "Company policy clearly states that all employees should receive equal treatment in promotion opportunities, regardless of background or position."
+            key: "telecommute",
+            zh: "疫情之後，越來越多公司允許員工每週遠距工作幾天，以兼顧效率與生活品質。",
+            en: "After the pandemic, more and more companies allow employees to telecommute a few days a week."
         },
         {
-            key: "negative",
-            zh: "負面的績效評估促使那名員工主動聯繫主管，詢問如何在下次入職訓練後改善表現。",
-            en: "The negative performance appraisal prompted the employee to proactively contact the supervisor and ask how to improve after the next orientation."
+            key: "entry-level",
+            zh: "這個入門級職位非常適合剛從大學畢業、希望累積經驗的社會新鮮人。",
+            en: "This entry-level position is perfect for fresh graduates who want to gain experience."
         },
         {
-            key: "contribute",
-            zh: "每位員工都應積極貢獻想法，幫助公司改善招募流程，建立一個更有活力的整體員工團隊。",
-            en: "Every employee should actively contribute ideas to help the company improve recruitment processes and build a more dynamic overall workforce."
+            key: "perks",
+            zh: "除了基本薪水，公司提供的健身房與免費午餐也是很受歡迎的額外福利。",
+            en: "Besides the base salary, the gym and free lunch the company offers are popular perks."
         },
         {
-            key: "bellhop",
-            zh: "旅館服務員迅速、有條理地協助客人搬運行李到各個樓層，充分展現了他的服務熱忱。",
-            en: "The bellhop promptly and efficiently assisted guests in carrying their luggage to various floors, fully demonstrating his service enthusiasm."
+            key: "innovative",
+            zh: "這家新創公司以創新的產品設計與大膽的行銷手法在業界打響了名號。",
+            en: "This startup made a name for itself with its innovative product design and bold marketing."
         },
         {
-            key: "mailroom clerk",
-            zh: "收發室職員每天確保所有信件和包裹都按照標準化程序正確分類，並及時送達各部門。",
-            en: "The mailroom clerk ensures daily that all letters and packages are correctly sorted according to the standardized procedure and delivered to each department on time."
+            key: "recruiter",
+            zh: "一位優秀的招募人員，能夠快速判斷哪一位人選最適合公司的文化與團隊。",
+            en: "A skilled recruiter can quickly tell which candidate best fits the company's culture and team."
         }
     ];
 
